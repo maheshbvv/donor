@@ -66,7 +66,9 @@ class WelcomePage extends StatelessWidget {
                     secondaryButton(
                       context: context,
                       text: 'REQUEST BLOOD',
-                      onPressed: () {},
+                      onPressed: () {
+                        GoRouter.of(context).go('/app_scaffold'); 
+                      },
                     ),
                   ],
                 ),

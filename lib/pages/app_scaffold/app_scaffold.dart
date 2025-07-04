@@ -33,8 +33,8 @@ class _AppScaffoldState extends State<AppScaffold> {
             label: 'Home',
           ),
           const BottomNavigationBarItem(
-            icon: Icon(Icons.search),
-            label: 'Search',
+            icon: Icon(Icons.handshake),
+            label: 'Requests',
           ),
           isLoggedIn
               ? const BottomNavigationBarItem(

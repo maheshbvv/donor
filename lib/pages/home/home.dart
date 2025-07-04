@@ -80,55 +80,92 @@ class _PublicHomeState extends State<PublicHome> {
                     }).toList(),
                     onChanged: (value) {
                       selectedGroup = value;
-                      setState(() {
-                        stream = FirebaseFirestore.instance
-                            .collection('donors')
-                            .where('donorActive', isEqualTo: true)
-                            .where('donorBloodGroup', isEqualTo: selectedGroup)
-                            .snapshots();
-                      });
+                      setState(() {});
                     },
                   ),
                   SizedBox(height: 6),
-                  donorTextField(
-                    context: context,
-                    icon: Icons.search,
-                    keyboardType: TextInputType.text,
+                  TextField(
                     controller: donorSearch,
-                    labelText: 'Search Location',
-                    obscureText: false,
+                    decoration: InputDecoration(
+                      hintStyle: GoogleFonts.poppins(
+                        color: Theme.of(context).colorScheme.onSurface,
+                        fontSize: 14,
+                      ),
+                      prefixIcon: Icon(
+                        Icons.search,
+                        color: Theme.of(context).colorScheme.onSurface,
+                      ),
+                      suffixIcon: IconButton(
+                        onPressed: () {
+                          donorSearch.clear();
+                          setState(() {});
+                        },
+                        icon: Icon(Icons.clear),
+                      ),
+                      labelText: 'Search by Location',
+                      labelStyle: GoogleFonts.poppins(
+                        color: Theme.of(context).colorScheme.onSurface,
+                        fontSize: 14,
+                      ),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                    ),
+                    onChanged: (value) {
+                      setState(() {});
+                    },
                   ),
 
                   StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
-                    stream: stream,
+                    stream: FirebaseFirestore.instance
+                        .collection('donors')
+                        .where('donorActive', isEqualTo: true)
+                        .snapshots(),
                     builder: (context, snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting) {
                         return const Center(child: CircularProgressIndicator());
                       }
+
+                      final allDocs = snapshot.data!.docs;
+
+                      // filter by selected blood group and search
+                      final filteredDocs = allDocs.where((doc) {
+                        final bloodGroupMatches =
+                            selectedGroup == null ||
+                            doc['donorBloodGroup'] == selectedGroup;
+                        final locationMatches =
+                            donorSearch.text.isEmpty ||
+                            doc['donorLocation']
+                                .toString()
+                                .toLowerCase()
+                                .contains(donorSearch.text.toLowerCase());
+
+                        return bloodGroupMatches && locationMatches;
+                      }).toList();
+
+                      if (filteredDocs.isEmpty) {
+                        return const Padding(
+                          padding: EdgeInsets.all(16),
+                          child: Text('No matching donors found'),
+                        );
+                      }
+
                       return ListView.builder(
                         shrinkWrap: true,
-                        itemCount: snapshot.data!.docs.length,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemCount: filteredDocs.length,
                         itemBuilder: (context, index) {
-                          Timestamp timestamp =
-                              snapshot.data!.docs[index]['donotRegistereAt'];
-                          DateTime date = timestamp.toDate();
-
+                          final donor = filteredDocs[index];
                           return BloodDonorCard(
-                            bloodGroup:
-                                snapshot.data!.docs[index]['donorBloodGroup'],
-                            donorName: snapshot.data!.docs[index]['donorName'],
-                            donorPlace:
-                                snapshot.data!.docs[index]['donorLocation'],
+                            bloodGroup: donor['donorBloodGroup'],
+                            donorName: donor['donorName'],
+                            donorPlace: donor['donorLocation'],
                             donorStatus:
-                                snapshot.data!.docs[index]['donorActive']
-                                        .toString() ==
-                                    "true"
+                                donor['donorActive'].toString() == "true"
                                 ? "Active"
                                 : "Inactive",
                             onCallPressed: () {
-                              makePhoneCall(
-                                snapshot.data!.docs[index]['donorPhone'],
-                              );
+                              makePhoneCall(donor['donorPhone']);
                             },
                           );
                         },
