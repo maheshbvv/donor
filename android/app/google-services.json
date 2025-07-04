@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "622219047185",
+    "project_id": "pendura-donor",
+    "storage_bucket": "pendura-donor.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:622219047185:android:852f68cc656f2d4aad9cb0",
+        "android_client_info": {
+          "package_name": "com.example.donor"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAc-2edhH_DvqpYW9PNAq2lqeCAOdcmzVQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

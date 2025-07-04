@@ -1,10 +1,13 @@
-import 'package:donor/home/home.dart';
-import 'package:donor/profile/donor_profile.dart';
-import 'package:donor/search/search.dart';
+import 'package:donor/firebase_options.dart';
+import 'package:donor/utils/theme.dart';
+import 'package:donor/widgets/router.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(const MainApp());
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 }
 
 class MainApp extends StatefulWidget {
@@ -24,33 +27,12 @@ class _MainAppState extends State<MainApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
+      theme: lightMode,
+      darkTheme: darkMode,
+      themeMode: ThemeMode.system,
       debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        bottomNavigationBar: BottomNavigationBar(
-          items: const [
-            BottomNavigationBarItem(
-              icon: Icon(Icons.water_drop),
-              label: 'Home',
-            ),
-            BottomNavigationBarItem(icon: Icon(Icons.search), label: 'Search'),
-            BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
-          ],
-          currentIndex: selectedIndex,
-          onTap: onItemTapped,
-          selectedItemColor: Colors.red,
-          unselectedItemColor: Colors.grey,
-        ),
-        body: IndexedStack(
-          index: selectedIndex, // Change this index to switch between pages
-          children: [
-            // Replace these with your actual pages
-            PublicHome(),
-            SearchPage(),
-            DonorProfile(),
-          ],
-        ),
-      ),
+      routerConfig: router,
     );
   }
 }
