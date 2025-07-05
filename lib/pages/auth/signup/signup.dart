@@ -22,6 +22,8 @@ class _SignUpState extends State<SignUp> {
   final TextEditingController donorConfirmPassword = TextEditingController();
   final TextEditingController donorBloodGroup = TextEditingController();
   String? selectedGroup;
+  bool passwordObscureText = true;
+  bool confirmPasswordObscureText = true;
 
   @override
   Widget build(BuildContext context) {
@@ -78,7 +80,13 @@ class _SignUpState extends State<SignUp> {
                     keyboardType: TextInputType.text,
                     controller: donorPassword,
                     labelText: 'Password',
-                    obscureText: true,
+                    suffixIcon: Icons.visibility_off,
+                    onPressed: () {
+                      setState(() {
+                        passwordObscureText = !passwordObscureText;
+                      });
+                    },
+                    obscureText: passwordObscureText,
                   ),
                   SizedBox(height: 12),
                   donorTextField(
@@ -87,7 +95,14 @@ class _SignUpState extends State<SignUp> {
                     keyboardType: TextInputType.text,
                     controller: donorConfirmPassword,
                     labelText: 'Confirm Password',
-                    obscureText: true,
+                    suffixIcon: Icons.visibility_off,
+                    onPressed: () {
+                      setState(() {
+                        confirmPasswordObscureText =
+                            !confirmPasswordObscureText;
+                      });
+                    },
+                    obscureText: confirmPasswordObscureText,
                   ),
                   SizedBox(height: 12),
                   donorTextField(

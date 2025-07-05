@@ -8,6 +8,8 @@ TextField donorTextField({
   required TextEditingController controller,
   required String labelText,
   required bool obscureText,
+  IconData? suffixIcon,
+  VoidCallback? onPressed,
 }) {
   return TextField(
     controller: controller,
@@ -20,6 +22,7 @@ TextField donorTextField({
         fontSize: 14,
       ),
       prefixIcon: Icon(icon, color: Theme.of(context).colorScheme.onSurface),
+      suffixIcon: IconButton(onPressed: onPressed, icon: Icon(suffixIcon)),
       labelText: labelText,
       labelStyle: GoogleFonts.poppins(
         color: Theme.of(context).colorScheme.onSurface,

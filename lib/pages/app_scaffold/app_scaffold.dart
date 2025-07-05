@@ -30,7 +30,7 @@ class _AppScaffoldState extends State<AppScaffold> {
         items: [
           const BottomNavigationBarItem(
             icon: Icon(Icons.water_drop),
-            label: 'Home',
+            label: 'Donors',
           ),
           const BottomNavigationBarItem(
             icon: Icon(Icons.handshake),

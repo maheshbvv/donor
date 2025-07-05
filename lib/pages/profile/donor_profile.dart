@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:donor/pages/profile/method_donor.dart';
 import 'package:donor/widgets/button.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -323,7 +324,7 @@ class _DonorProfileState extends State<DonorProfile> {
                         Card(
                           child: ListTile(
                             leading: const Icon(Icons.directions_walk),
-                            title: const Text('Status'),
+                            title: const Text('Available to Donate'),
                             trailing: Switch(
                               value: data['donorActive'] ?? false,
                               onChanged: (value) async {
@@ -352,8 +353,8 @@ class _DonorProfileState extends State<DonorProfile> {
                         donorButton(
                           context: context,
                           text: 'LOGOUT',
-                          onPressed: () async {
-                            await FirebaseAuth.instance.signOut();
+                          onPressed: () {
+                            signOut(context);
                           },
                         ),
                       ],

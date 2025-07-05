@@ -8,9 +8,9 @@ class WelcomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    FocusScope.of(context).unfocus();
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.primary,
-
       body: Column(
         children: [
           SizedBox(height: 60),
@@ -67,7 +67,7 @@ class WelcomePage extends StatelessWidget {
                       context: context,
                       text: 'REQUEST BLOOD',
                       onPressed: () {
-                        GoRouter.of(context).go('/app_scaffold'); 
+                        GoRouter.of(context).go('/app_scaffold');
                       },
                     ),
                   ],

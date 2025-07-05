@@ -3,8 +3,10 @@ import 'package:donor/pages/app_scaffold/app_scaffold.dart';
 import 'package:donor/pages/auth/forgot_password/forgot_password.dart';
 import 'package:donor/pages/auth/signin/signin.dart';
 import 'package:donor/pages/auth/signup/signup.dart';
+import 'package:donor/pages/controller/controller.dart';
 import 'package:donor/pages/requests/requests.dart';
 import 'package:donor/pages/welcome/welcome_page.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -50,6 +52,16 @@ final GoRouter router = GoRouter(
           path: 'requests',
           builder: (BuildContext context, GoRouterState state) {
             return RequestsPage();
+          },
+        ),
+        GoRoute(
+          path: 'controller',
+          builder: (BuildContext context, GoRouterState state) {
+            if (FirebaseAuth.instance.currentUser!.email ==
+                "maheshbvv@hotmail.com") {
+              return ControllerPage();
+            }
+            return AppScaffold();
           },
         ),
       ],
