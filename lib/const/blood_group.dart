@@ -1,10 +1,10 @@
 final List<String> bloodGroups = [
   'A+',
-  'A−',
+  'A-',
   'B+',
-  'B−',
+  'B-',
   'AB+',
-  'AB−',
+  'AB-',
   'O+',
-  'O−',
+  'O-',
 ];

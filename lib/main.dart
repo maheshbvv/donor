@@ -6,8 +6,8 @@ import 'package:flutter/material.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  runApp(const MainApp());
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  runApp(const MainApp());
 }
 
 class MainApp extends StatefulWidget {

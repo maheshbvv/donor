@@ -23,42 +23,47 @@ class ForgotPassword extends StatelessWidget {
       ),
       body: Center(
         child: SizedBox(
-          width: 300,
-          child: Column(
-            children: [
-              SizedBox(height: 120),
-              Text(
-                'FORGOT PASSWORD?',
-                style: GoogleFonts.poppins(
-                  fontSize: 24,
-                  fontWeight: FontWeight.w800,
+          width: MediaQuery.of(context).size.width > 600
+              ? 600
+              : MediaQuery.of(context).size.width,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 6.0),
+            child: Column(
+              children: [
+                SizedBox(height: 120),
+                Text(
+                  'FORGOT PASSWORD?',
+                  style: GoogleFonts.poppins(
+                    fontSize: 24,
+                    fontWeight: FontWeight.w800,
+                  ),
                 ),
-              ),
-              SizedBox(height: 12),
-              donorTextField(
-                context: context,
-                icon: Icons.email,
-                keyboardType: TextInputType.emailAddress,
-                controller: donorEmail,
-                labelText: 'Email',
-                obscureText: false,
-              ),
-              SizedBox(height: 18),
-              donorButton(
-                context: context,
-                text: 'RESET PASSWORD',
-                onPressed: () {
-                  forgotPassword(context, donorEmail.text.trim());
-                },
-              ),
-              SizedBox(height: 18),
-              TextButton(
-                onPressed: () {
-                  GoRouter.of(context).go('/signin');
-                },
-                child: Text('SIGN IN'),
-              ),
-            ],
+                SizedBox(height: 12),
+                donorTextField(
+                  context: context,
+                  icon: Icons.email,
+                  keyboardType: TextInputType.emailAddress,
+                  controller: donorEmail,
+                  labelText: 'Email',
+                  obscureText: false,
+                ),
+                SizedBox(height: 18),
+                donorButton(
+                  context: context,
+                  text: 'RESET PASSWORD',
+                  onPressed: () {
+                    forgotPassword(context, donorEmail.text.trim());
+                  },
+                ),
+                SizedBox(height: 18),
+                TextButton(
+                  onPressed: () {
+                    GoRouter.of(context).go('/signin');
+                  },
+                  child: Text('SIGN IN'),
+                ),
+              ],
+            ),
           ),
         ),
       ),

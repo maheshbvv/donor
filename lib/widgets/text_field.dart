@@ -3,7 +3,6 @@ import 'package:google_fonts/google_fonts.dart';
 
 TextField donorTextField({
   required BuildContext context,
-  // required String label,
   required IconData icon,
   required TextInputType keyboardType,
   required TextEditingController controller,

@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
 class BloodDonorCard extends StatelessWidget {
   final String bloodGroup;
   final String donorName;
@@ -9,16 +7,21 @@ class BloodDonorCard extends StatelessWidget {
   final VoidCallback? onCallPressed;
 
   const BloodDonorCard({
-    Key? key,
+    super.key,
     required this.bloodGroup,
     required this.donorName,
     required this.donorPlace,
     required this.donorStatus,
     this.onCallPressed,
-  }) : super(key: key);
+  });
 
   Color _getBloodGroupColor(String bloodGroup) {
-    switch (bloodGroup.toUpperCase()) {
+    String normalized = bloodGroup
+        .trim()
+        .toUpperCase()
+        .replaceAll('–', '-') // en-dash
+        .replaceAll('—', '-');
+    switch (normalized) {
       case 'A+':
         return Colors.red.shade600;
       case 'A-':
@@ -104,9 +107,7 @@ class BloodDonorCard extends StatelessWidget {
                       borderRadius: BorderRadius.circular(20),
                       boxShadow: [
                         BoxShadow(
-                          color: _getBloodGroupColor(
-                            bloodGroup,
-                          ).withOpacity(0.3),
+                          color: _getBloodGroupColor(bloodGroup),
                           blurRadius: 8,
                           offset: const Offset(0, 2),
                         ),
@@ -128,7 +129,7 @@ class BloodDonorCard extends StatelessWidget {
                       vertical: 6,
                     ),
                     decoration: BoxDecoration(
-                      color: _getStatusColor(donorStatus).withOpacity(0.1),
+                      color: _getStatusColor(donorStatus),
                       borderRadius: BorderRadius.circular(15),
                       border: Border.all(
                         color: _getStatusColor(donorStatus),
@@ -140,14 +141,14 @@ class BloodDonorCard extends StatelessWidget {
                       children: [
                         Icon(
                           _getStatusIcon(donorStatus),
-                          color: _getStatusColor(donorStatus),
+                          color: Colors.white,
                           size: 16,
                         ),
                         const SizedBox(width: 4),
                         Text(
                           donorStatus,
                           style: TextStyle(
-                            color: _getStatusColor(donorStatus),
+                            color: Colors.white,
                             fontSize: 12,
                             fontWeight: FontWeight.w600,
                           ),
@@ -160,75 +161,105 @@ class BloodDonorCard extends StatelessWidget {
 
               const SizedBox(height: 20),
 
-              // Donor Name
+              // Donor Info Row with Name, Place, and Call Button
               Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Icon(Icons.person, color: Colors.grey.shade600, size: 20),
-                  const SizedBox(width: 8),
+                  // Left side - Name and Place
                   Expanded(
-                    child: Text(
-                      donorName,
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w600,
-                        color: Theme.of(context).colorScheme.onSurface,
-                      ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        // Donor Name
+                        Row(
+                          children: [
+                            Icon(
+                              Icons.person,
+                              color: Colors.grey.shade600,
+                              size: 20,
+                            ),
+                            const SizedBox(width: 8),
+                            Expanded(
+                              child: Text(
+                                donorName,
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w600,
+                                  color: Theme.of(
+                                    context,
+                                  ).colorScheme.onSurface,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+
+                        const SizedBox(height: 12),
+
+                        // Donor Place
+                        Row(
+                          children: [
+                            Icon(
+                              Icons.location_on,
+                              color: Colors.grey.shade600,
+                              size: 20,
+                            ),
+                            const SizedBox(width: 8),
+                            Expanded(
+                              child: Text(
+                                donorPlace,
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  color: Theme.of(
+                                    context,
+                                  ).colorScheme.onSurface,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
                     ),
                   ),
-                ],
-              ),
 
-              const SizedBox(height: 12),
+                  const SizedBox(width: 16),
 
-              // Donor Place
-              Row(
-                children: [
-                  Icon(
-                    Icons.location_on,
-                    color: Colors.grey.shade600,
-                    size: 20,
-                  ),
-                  const SizedBox(width: 8),
-                  Expanded(
-                    child: Text(
-                      donorPlace,
-                      style: TextStyle(
-                        fontSize: 14,
-                        color: Theme.of(context).colorScheme.onSurface,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-
-              const SizedBox(height: 20),
-
-              // Call Button
-              SizedBox(
-                width: double.infinity,
-                child: ElevatedButton.icon(
-                  onPressed: onCallPressed,
-                  icon: const Icon(Icons.phone, color: Colors.white),
-                  label: const Text(
-                    'Call Donor',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.white,
-                    ),
-                  ),
-                  style: ElevatedButton.styleFrom(
+                  // Right side - Call Button
+                  CircleAvatar(
                     backgroundColor: Colors.green.shade600,
-                    foregroundColor: Colors.white,
-                    padding: const EdgeInsets.symmetric(vertical: 12),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
+                    child: IconButton(
+                      onPressed: onCallPressed,
+                      icon: Icon(Icons.phone, color: Colors.white),
                     ),
-                    elevation: 4,
-                    shadowColor: Colors.green.shade600.withOpacity(0.4),
                   ),
-                ),
+                ],
               ),
+
+              // SizedBox(
+              //   width: double.infinity,
+              //   child: ElevatedButton.icon(
+              //     onPressed: onCallPressed,
+              //     icon: const Icon(Icons.phone, color: Colors.white),
+              //     label: const Text(
+              //       'Call Donor',
+              //       style: TextStyle(
+              //         fontSize: 16,
+              //         fontWeight: FontWeight.w600,
+              //         color: Colors.white,
+              //       ),
+              //     ),
+              //     style: ElevatedButton.styleFrom(
+              //       backgroundColor: Colors.green.shade600,
+              //       foregroundColor: Colors.white,
+              //       padding: const EdgeInsets.symmetric(vertical: 12),
+              //       shape: RoundedRectangleBorder(
+              //         borderRadius: BorderRadius.circular(12),
+              //       ),
+              //       elevation: 4,
+              //       shadowColor: Colors.green.shade600,
+              //     ),
+              //   ),
+              // ),
             ],
           ),
         ),

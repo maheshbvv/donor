@@ -23,64 +23,69 @@ class SignIn extends StatelessWidget {
         ),
       ),
       body: SingleChildScrollView(
-        child: Center(
-          child: SizedBox(
-            width: 300,
-            child: Column(
-              children: [
-                SizedBox(height: 120),
-                Text(
-                  'SIGN IN',
-                  style: GoogleFonts.poppins(
-                    fontSize: 24,
-                    fontWeight: FontWeight.w800,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 6.0),
+          child: Center(
+            child: SizedBox(
+              width: MediaQuery.of(context).size.width > 600
+                  ? 600
+                  : MediaQuery.of(context).size.width,
+              child: Column(
+                children: [
+                  SizedBox(height: 120),
+                  Text(
+                    'SIGN IN',
+                    style: GoogleFonts.poppins(
+                      fontSize: 24,
+                      fontWeight: FontWeight.w800,
+                    ),
                   ),
-                ),
 
-                SizedBox(height: 12),
-                donorTextField(
-                  context: context,
-                  icon: Icons.email,
-                  keyboardType: TextInputType.emailAddress,
-                  controller: donorEmail,
-                  labelText: 'Email',
-                  obscureText: false,
-                ),
-                SizedBox(height: 12),
-                donorTextField(
-                  context: context,
-                  icon: Icons.password,
-                  keyboardType: TextInputType.text,
-                  controller: donorPassword,
-                  labelText: 'Password',
-                  obscureText: true,
-                ),
-                SizedBox(height: 12),
-                donorButton(
-                  context: context,
-                  text: 'SIGN IN',
-                  onPressed: () {
-                    donorSignin(
-                      context,
-                      donorEmail.text.trim(),
-                      donorPassword.text.trim(),
-                    );
-                  },
-                ),
-                SizedBox(height: 36),
-                TextButton(
-                  onPressed: () {
-                    GoRouter.of(context).go('/create');
-                  },
-                  child: Text('Not a Member? SIGN UP'),
-                ),
-                TextButton(
-                  onPressed: () {
-                    GoRouter.of(context).go('/forgot_password');
-                  },
-                  child: Text('Forgot Password?'),
-                ),
-              ],
+                  SizedBox(height: 12),
+                  donorTextField(
+                    context: context,
+                    icon: Icons.email,
+                    keyboardType: TextInputType.emailAddress,
+                    controller: donorEmail,
+                    labelText: 'Email',
+                    obscureText: false,
+                  ),
+                  SizedBox(height: 12),
+                  donorTextField(
+                    context: context,
+                    icon: Icons.password,
+                    keyboardType: TextInputType.text,
+                    controller: donorPassword,
+                    labelText: 'Password',
+                    obscureText: true,
+                  ),
+                  SizedBox(height: 12),
+                  donorButton(
+                    context: context,
+                    text: 'SIGN IN',
+                    onPressed: () {
+                      donorSignin(
+                        context,
+                        donorEmail.text.trim(),
+                        donorPassword.text.trim(),
+                      );
+                    },
+                  ),
+                  SizedBox(height: 36),
+                  TextButton(
+                    onPressed: () {
+                      GoRouter.of(context).go('/create');
+                    },
+                    child: Text('Not a Member? SIGN UP'),
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      GoRouter.of(context).go('/forgot_password');
+                    },
+                    child: Text('Forgot Password?'),
+                  ),
+                ],
+              ),
             ),
           ),
         ),

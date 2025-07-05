@@ -1,1 +1,52 @@
-{"flutter":{"platforms":{"android":{"default":{"projectId":"pendura-donor","appId":"1:622219047185:android:852f68cc656f2d4aad9cb0","fileOutput":"android/app/google-services.json"}},"ios":{"default":{"projectId":"pendura-donor","appId":"1:622219047185:ios:428e6b775081c971ad9cb0","uploadDebugSymbols":false,"fileOutput":"ios/Runner/GoogleService-Info.plist"}},"macos":{"default":{"projectId":"pendura-donor","appId":"1:622219047185:ios:75957ebeeac4dae1ad9cb0","uploadDebugSymbols":false,"fileOutput":"macos/Runner/GoogleService-Info.plist"}},"dart":{"lib/firebase_options.dart":{"projectId":"pendura-donor","configurations":{"android":"1:622219047185:android:852f68cc656f2d4aad9cb0","ios":"1:622219047185:ios:428e6b775081c971ad9cb0","macos":"1:622219047185:ios:75957ebeeac4dae1ad9cb0","web":"1:622219047185:web:d619a773ee8d37bfad9cb0","windows":"1:622219047185:web:639e6b82c2a8c8f6ad9cb0"}}}}}}
+{
+  "flutter": {
+    "platforms": {
+      "android": {
+        "default": {
+          "projectId": "pendura-donor",
+          "appId": "1:622219047185:android:852f68cc656f2d4aad9cb0",
+          "fileOutput": "android/app/google-services.json"
+        }
+      },
+      "ios": {
+        "default": {
+          "projectId": "pendura-donor",
+          "appId": "1:622219047185:ios:428e6b775081c971ad9cb0",
+          "uploadDebugSymbols": false,
+          "fileOutput": "ios/Runner/GoogleService-Info.plist"
+        }
+      },
+      "macos": {
+        "default": {
+          "projectId": "pendura-donor",
+          "appId": "1:622219047185:ios:75957ebeeac4dae1ad9cb0",
+          "uploadDebugSymbols": false,
+          "fileOutput": "macos/Runner/GoogleService-Info.plist"
+        }
+      },
+      "dart": {
+        "lib/firebase_options.dart": {
+          "projectId": "pendura-donor",
+          "configurations": {
+            "android": "1:622219047185:android:852f68cc656f2d4aad9cb0",
+            "ios": "1:622219047185:ios:428e6b775081c971ad9cb0",
+            "macos": "1:622219047185:ios:75957ebeeac4dae1ad9cb0",
+            "web": "1:622219047185:web:d619a773ee8d37bfad9cb0",
+            "windows": "1:622219047185:web:639e6b82c2a8c8f6ad9cb0"
+          }
+        }
+      }
+    }
+  },
+  "hosting": {
+    "source": ".",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "frameworksBackend": {
+      "region": "us-central1"
+    }
+  }
+}

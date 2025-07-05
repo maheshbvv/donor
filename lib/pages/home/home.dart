@@ -1,12 +1,10 @@
 import 'dart:core';
 import 'package:donor/const/blood_group.dart';
-import 'package:intl/intl.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:donor/pages/home/method_home.dart';
 import 'package:donor/widgets/card.dart';
-import 'package:donor/widgets/text_field.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class PublicHome extends StatefulWidget {
@@ -37,8 +35,10 @@ class _PublicHomeState extends State<PublicHome> {
         ),
       ),
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {},
-        icon: FaIcon(FontAwesomeIcons.handshakeAngle),
+        onPressed: () {
+          GoRouter.of(context).push('/requests');
+        },
+        icon: Icon(Icons.handshake),
         label: Text('Make a Request'),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
@@ -61,6 +61,7 @@ class _PublicHomeState extends State<PublicHome> {
                   ),
                   SizedBox(height: 6),
                   DropdownButtonFormField(
+                    value: selectedGroup,
                     decoration: InputDecoration(
                       label: Row(
                         children: [
@@ -68,12 +69,22 @@ class _PublicHomeState extends State<PublicHome> {
                             Icons.bloodtype,
                             color: Theme.of(context).colorScheme.onSurface,
                           ),
-                          Text('Blood Group'),
+                          Text('Filter by Blood Group'),
                         ],
                       ),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(30),
                       ),
+                      suffixIcon: selectedGroup != null
+                          ? IconButton(
+                              onPressed: () {
+                                selectedGroup = null;
+                                setState(() {});
+                              },
+                              icon: Icon(Icons.clear),
+                              tooltip: 'Clear filter',
+                            )
+                          : null,
                     ),
                     items: bloodGroups.map((String group) {
                       return DropdownMenuItem(value: group, child: Text(group));
@@ -115,6 +126,7 @@ class _PublicHomeState extends State<PublicHome> {
                       setState(() {});
                     },
                   ),
+                  SizedBox(height: 12),
 
                   StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
                     stream: FirebaseFirestore.instance

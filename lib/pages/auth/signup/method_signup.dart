@@ -121,7 +121,7 @@ Future<void> donorSignUp(
             'donorLocation': location,
             'donorBloodGroup': bloodGroup,
             'donorActive': true,
-            'donotRegistereAt': DateTime.now(),
+            'donorRegisteredAt': DateTime.now(),
           });
 
       // You can show a success message or navigate
